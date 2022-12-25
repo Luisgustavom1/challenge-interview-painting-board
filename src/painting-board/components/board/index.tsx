@@ -11,7 +11,7 @@ interface Frame {
 }
 
 interface FrameAction {
-  coordinates: Coordinates
+  frame: Frame
   action: 'PAINT' | 'DELETE'
 }
 
@@ -43,24 +43,25 @@ export const Board = () => {
       x: event.clientX, 
       y: event.clientY
     }
-    const stringFrameCoordinates = generateCoordinate(frameCoordinates.x, frameCoordinates.y) 
+    const frameCoordinatesAsString = generateCoordinate(frameCoordinates.x, frameCoordinates.y) 
     const alreadyFramePainted = frameList
-      .find(({ coordinates }) => generateCoordinate(coordinates.x, coordinates.y) === stringFrameCoordinates)
+      .find(({ coordinates }) => generateCoordinate(coordinates.x, coordinates.y) === frameCoordinatesAsString)
 
     if (alreadyFramePainted) {
       removeFrameList({ coordinates: frameCoordinates })
       stackPaintHistory.push({
-        coordinates: frameCoordinates,
+        frame: alreadyFramePainted,
         action: 'DELETE'
       })
       return;
     }
 
-    addFrameList({
+    const newFrame = {
       coordinates: frameCoordinates
-    })
+    }
+    addFrameList(newFrame)
     stackPaintHistory.push({
-      coordinates: frameCoordinates,
+      frame: newFrame,
       action: 'PAINT'
     })
   }
@@ -72,16 +73,12 @@ export const Board = () => {
     stackUndoHistory.push(lastAction)
 
     if (lastAction.action === 'DELETE') {
-      addFrameList({
-        coordinates: lastAction.coordinates
-      })
+      addFrameList(lastAction.frame)
 
       return
     }
 
-    removeFrameList({
-      coordinates: lastAction.coordinates
-    })
+    removeFrameList(lastAction.frame)
   }
 
   function redoAction() {
@@ -91,16 +88,12 @@ export const Board = () => {
     stackPaintHistory.push(lastAction)
 
     if (lastAction.action === 'PAINT') {
-      addFrameList({
-        coordinates: lastAction.coordinates
-      })
+      addFrameList(lastAction.frame)
 
       return
     }
 
-    removeFrameList({
-      coordinates: lastAction.coordinates
-    })
+    removeFrameList(lastAction.frame)
   }
 
   return (
