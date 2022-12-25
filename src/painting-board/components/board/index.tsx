@@ -29,11 +29,11 @@ export const Board = () => {
     setFrameList(prevState => [...prevState, frame])
   }
 
-  function removeFrameList(frame: Frame) {
+  function removeFrameListByCoordinates(coordinates: Coordinates) {
     setFrameList((prevState) => prevState
-      .filter(({ coordinates }) => 
-        generateCoordinate(coordinates.x, coordinates.y) !== 
-        generateCoordinate(frame.coordinates.x, frame.coordinates.y)
+      .filter((frame) => 
+        generateCoordinate(frame.coordinates.x, frame.coordinates.y) !== 
+        generateCoordinate(coordinates.x, coordinates.y)
     ))
   }
 
@@ -48,7 +48,7 @@ export const Board = () => {
       .find(({ coordinates }) => generateCoordinate(coordinates.x, coordinates.y) === frameCoordinatesAsString)
 
     if (alreadyFramePainted) {
-      removeFrameList({ coordinates: frameCoordinates })
+      removeFrameListByCoordinates(frameCoordinates)
       stackPaintHistory.push({
         frame: alreadyFramePainted,
         action: 'DELETE'
@@ -78,7 +78,7 @@ export const Board = () => {
       return
     }
 
-    removeFrameList(lastAction.frame)
+    removeFrameListByCoordinates(lastAction.frame.coordinates)
   }
 
   function redoAction() {
@@ -93,7 +93,7 @@ export const Board = () => {
       return
     }
 
-    removeFrameList(lastAction.frame)
+    removeFrameListByCoordinates(lastAction.frame)
   }
 
   return (
