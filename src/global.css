@@ -1,0 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Chivo Mono', monospace;
+}
+
+html, body, #root { 
+  height: 100%; 
+}
+
+.container {
+  height: 100%;
+  padding: 24px 16px;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin-bottom: 24px;
+}
+
+button {
+  border: none;
+  padding: 16px 64px;
+  border-radius: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+button:hover {
+  filter: brightness(0.95);
+  transition: all 250ms ease-in;
+}

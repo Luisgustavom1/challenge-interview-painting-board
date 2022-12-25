@@ -1,0 +1,35 @@
+.board-container {
+  width: 600px;
+  height: 600px;
+
+  margin: 0 auto;
+
+  background-color: #fff;
+  outline: 1px solid rgb(205 205 205);
+  border-radius: 4px;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0;
+}
+
+.frame {
+  display: flex;
+
+  width: 12px;
+  height: 12px;
+
+  position: absolute;
+}
+
+.frame.painted {
+  background-color: red;
+}
+
+.actions-container {
+  margin-bottom: 16px;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
