@@ -38,7 +38,6 @@ export const Board = () => {
   }
 
   function toggleFrame(event: React.MouseEvent<HTMLSpanElement>) {
-    event.stopPropagation()
     const frameCoordinates: Coordinates = {
       x: event.clientX, 
       y: event.clientY
@@ -93,7 +92,7 @@ export const Board = () => {
       return
     }
 
-    removeFrameListByCoordinates(lastAction.frame)
+    removeFrameListByCoordinates(lastAction.frame.coordinates)
   }
 
   return (
